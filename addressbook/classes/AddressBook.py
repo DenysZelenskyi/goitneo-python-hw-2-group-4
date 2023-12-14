@@ -1,4 +1,4 @@
-from dec.dec import input_error
+from addressbook.dec.dec import input_error
 from collections import UserDict
 
 
