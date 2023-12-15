@@ -1,5 +1,6 @@
-from .Name import Name
 from .Phone import Phone
+from .Name import Name
+
 
 class Record:
     def __init__(self, name):
@@ -8,33 +9,24 @@ class Record:
 
     def add_phone(self, number):
         if Phone.validate_phone_number(number):
-            phone = Phone(number)
-            self.phones.append(phone)
-            print(f"Added phone {number} for {self.name}")
+            self.phones.append(Phone(number))
         else:
             raise ValueError("Invalid phone number format. It should have 10 digits.")
 
     def remove_phone(self, number):
-        for phone in self.phones:
-            if phone.number == number:
-                self.phones.remove(phone)
-                print(f"Removed phone {number} for {self.name}")
-                return
-        print(f"Phone {number} not found for {self.name}")
+        self.phones = [phone for phone in self.phones if phone.value != number]
 
     def edit_phone(self, old_number, new_number):
-        phone_to_edit = self.find_phone(old_number)
-        if phone_to_edit:
-            phone_to_edit.number = new_number
-            print(f"Edited phone from {old_number} to {new_number} for {self.name}")
-        else:
-            print(f"Phone {old_number} not found for {self.name}")
+        for phone in self.phones:
+            if phone.value == old_number:
+                phone.value = new_number
+                break
 
     def find_phone(self, number):
         for phone in self.phones:
-            if phone.number == number:
+            if phone.value == number:
                 return phone
-        return None
-    
+
     def __str__(self):
-        return f"{self.name}: {', '.join(map(str, self.phones))}"
+        phones_str = ', '.join(str(phone) for phone in self.phones)
+        return f"Contact name: {self.name}, phones: {phones_str}"
