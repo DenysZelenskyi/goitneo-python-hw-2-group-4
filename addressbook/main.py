@@ -1,5 +1,5 @@
-from addressbook.classes.AddressBook import AddressBook
-from addressbook.classes.Record import Record
+from classes.AddressBook import AddressBook
+from classes.Record import Record
 
 # нова книга
 book = AddressBook()
@@ -12,6 +12,11 @@ john_record.add_phone("5555555555")
 # add John до книги
 book.add_record(john_record)
 
+# Перевірка, чи правильно знаходимо запис "John" в книзі
+john_record_from_book = book.find("John")
+print(john_record_from_book)  # Повинно вивести екземпляр Record або None, якщо не знайдено
+
+
 
 jane_record = Record("Jane")
 jane_record.add_phone("9876543210")
@@ -21,15 +26,10 @@ book.add_record(jane_record)
 for name, record in book.data.items():
     print(record)
 
-# редагування телефону
-john = book.find("John")
-john.edit_phone("1234567890", "1112223333")
+# Перевірка, чи правильно знаходимо запис "John" в книзі
+john_record_from_book = book.find("John")
+print(john_record_from_book)  # Повинно вивести екземпляр Record або None, якщо не знайдено
 
-print(john) 
-
-# Пошук конкретного телефону у записі John
-found_phone = john.find_phone("5555555555")
-print(f"{john.name}: {found_phone}")  
-
-# Видалення запису
-book.delete("Jane")
+# Перевірка, чи правильно знаходимо телефон в записі "John"
+found_phone = john_record_from_book.find_phone("5555555555")
+print(f"{john_record_from_book.name}: {found_phone}")  # Повинно вивести номер телефону або None, якщо не знайдено

@@ -4,12 +4,12 @@ def input_error(func):
             return func(*args, **kwargs)
         except ValueError:
             print("Invalid input. Please provide valid data.")
-            return "Invalid input. Please provide valid data."
+            return None
         except KeyError:
             print("User not exist. Please provide valid data.")
-            return "User not exist. Please provide valid data."
+            return None
         except IndexError:
-            print("Please  check your input.")
-            return "Please  check your input."
+            print("Please check your input.")
+            return None
 
     return inner
